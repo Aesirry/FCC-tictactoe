@@ -1,0 +1,53 @@
+.board {
+    margin: 50px auto;
+    width: 402px;
+    height: 402px;
+}
+
+.game-box {
+  width: 134px;
+  height: 134px;
+  position: relative;
+  float: left;
+}
+
+.top-bottom {
+  border-right: lightgray solid 1px;
+  border-left: lightgray solid 1px;
+}
+
+.right-left {
+  border-top: lightgray solid 1px;
+  border-bottom: lightgray solid 1px;
+}
+
+.middle {
+  border: lightgray solid 1px;
+}
+
+.x-ingame {
+  color: red;
+  font-size: 140px;
+  text-align: center;
+  display: block;
+  position: relative;
+  bottom: 10px;
+}
+
+.o-ingame {
+  font-size: 120px;
+  text-align: center;
+  display: block;
+  position: relative;
+  top: 7px;
+}
+
+.player-modal-content .spans {
+  display: inline;
+  position: static;
+  cursor: pointer;
+}
+
+.circle {
+  text-align: right;
+}

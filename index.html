@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<head>
+  <title>FCC Tic Tac Toe</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center">FCC Tic Tac Toe</h1>
+    <!-- win count -->
+    <div class="hidden-xs hidden-sm hidden-md hidden-lg hidden-xl row">
+      <div class="col-xs-6 text-center">
+        <h3>Player</h3>
+        <h3></h3>
+      </div>
+      <div>
+        <h3>Computer</h3>
+      </div>
+    </div>
+    <!-- end win count  -->
+    <div class="board">
+      <div class="game-box" id="0"></div>
+      <div class="game-box top-bottom" id="1"></div>
+      <div class="game-box" id="2"></div>
+      <div class="game-box right-left" id="3"></div>
+      <div class="game-box middle" id="4"></div>
+      <div class="game-box right-left" id="5"></div>
+      <div class="game-box" id="6"></div>
+      <div class="game-box top-bottom" id="7"></div>
+      <div class="game-box" id="8"></div>
+    </div>
+    <div class="endgame text-center">
+      <div class="text">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#playerModal">
+          New Game
+        </button>
+      </div>
+    </div>
+    <div class="modal fade" id="playerModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title">Choose...</h1>
+          </div>
+          <div class="modal-body container player-modal-content">
+              <span id="x" class="fa fa-times spans"></span>
+              <span id="o" class="fa fa-circle-o spans"></span>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
+</body>
