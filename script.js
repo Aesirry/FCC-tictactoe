@@ -2,45 +2,41 @@
 // User Story: My game will reset as soon as it's over so I can play again.
 // User Story: I can choose whether I want to play as X or O.
 
-// TODO: make the main ai engine. The mighty random function
-// TODO: it should pick a number from the ones that are available. randomly.
-// TODO: save the state of the board in an array
-// TODO: turn mechanism
-// TODO: game reset mechanism upon endgame
-// TODO: winning mechanism
+// TODO: symbols can be entered twice.. both the same or different
+// TODO: symbols can be out of the game box
 
-$(document).ready(function (){
-  // display modal for player selection upon click
-  // select player
-  //   $(".game-box").click(function(){
-  //   if (huPlayer === undefined || aiPlayer === undefined){
-  //     $("#playerModal").modal('show');
-  //     return 0;
-  //   }
-  //   box_id = $(this).attr('id');
-  //   if(typeof game[box_id] != "number"){
-  //     return 0;
-  //   }
-  //   move(huPlayer, box_id);
-  //   console.log("Game:" + game);
-  // });
-  //   // if you click the x or x then you are assigned the character, and the ai the other
-  // $("#x").click(function(){
-  //   $("#playerModal").modal('hide');
-  //   huPlayer = "x";
-  //   aiPlayer = "o";
-  // });
-  // $("#o").click(function(){
-  //   $("#playerModal").modal('hide');
-  //   huPlayer = "o";
-  //   aiPlayer = "x";
-  // });
+$(document).ready(function(){
   huPlayer = "x";
   aiPlayer = "o";
 
+  $(".game-box").click(function(){
+    move(huPlayer, $(this).attr('id'));
+    move(aiPlayer, aiChoice(game));
+    if (winning(game, huPlayer)){
+        resetGame();
+    }
+    console.log(game);
+  });
+
+  $("#reset").click(function(){
+    resetGame();
+  });
   // while the winning state isn't true keep setting the 
 
 });
+
+function resetGame(){
+  $(".game-box").empty();
+  game = [0,1,2,3,4,5,6,7,8];
+}
+
+function aiChoice(board){
+  // get the game array with the available spaces
+  let choices = emptyIndexes(game);
+  let max = board.length;
+  let min = 0;
+  return Math.floor(Math.random() * (max + 1));
+}
 
 function move(player, box_id){
   if (player === "x"){
@@ -57,10 +53,6 @@ var game = [0,1,2,3,4,5,6,7,8];
 var huPlayer;
 var aiPlayer;
 var box_id;
-
-// saves all the move objects: the 'moves' are actually game states
-var moves = [];
-// go through each available spot and record index and score
 
 // returns list of empty indexes
 function emptyIndexes(board){
