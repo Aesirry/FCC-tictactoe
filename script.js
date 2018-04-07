@@ -1,13 +1,4 @@
-// User Story: I can play a game of Tic Tac Toe with the computer.
-// User Story: My game will reset as soon as it's over so I can play again.
 // User Story: I can choose whether I want to play as X or O.
-
-// TODO the game doesn't finish
-// TODO the game ends when a player wins and resets
-// TODO: symbols can be entered twice.. both the same or different
-// TODO: symbols can be out of the game box
-
-// TODO try passing the game to the move function. 
 
 $(document).ready(function () {
     "use strict";
@@ -28,9 +19,6 @@ $(document).ready(function () {
         var ai_choices = emptyIndexes(game);
         var max = ai_choices.length - 1;
         var result = Math.floor(Math.random() * (max + 1));
-        console.log(ai_choices, "these are the AI_choices");
-        console.log(result, "this is the result");
-        console.log(ai_choices[result], "this is what the result gets from the ai_choices");
         return ai_choices[result];
     }
 
@@ -78,6 +66,15 @@ $(document).ready(function () {
             console.log('turn limit reached');
             resetGame();
         }
+        if (winning(game, huPlayer)) {
+            console.log('player wins');
+            resetGame();
+        }
+        if (winning(game, aiPlayer)) {
+            console.log('ai wins');
+            resetGame();
+        }
+
     });
 
     $("#reset").click(function () {
