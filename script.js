@@ -1,12 +1,38 @@
-// User Story: I can choose whether I want to play as X or O.
+
+// TODO: 
 
 $(document).ready(function () {
     "use strict";
-    var huPlayer = "x";
-    var aiPlayer = "o";
+    var roles;
+    var huPlayer;
+    var aiPlayer;
     var game = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     var turn_count = 0;
-    
+
+    function assignSymbol (choice){
+        if (choice === 'x'){
+            roles = {
+                'huPlayer': 'x',
+                'aiPlayer': 'o'
+            }
+        }
+        else {
+            roles = {
+                'huPlayer': 'o',
+                'aiPlayer': 'x'
+            }
+        }
+        return roles
+    }
+
+    $("#x, #o").click(function(){
+        var player_roles = assignSymbol($(this).attr("id"));
+        huPlayer = player_roles["huPlayer"];
+        aiPlayer = player_roles["aiPlayer"];
+        $("#playerModal").modal("hide");
+    });
+        
+
     // returns list of empty indexes
     function emptyIndexes(board) {
         return board.filter(function what(space) {

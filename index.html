@@ -34,7 +34,7 @@
     </div>
     <div class="endgame text-center">
       <div class="text">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#playerModal">
+        <button id="new-game" type="button" class="btn btn-primary" data-toggle="modal" data-target="#playerModal">
           New Game
         </button>
         <button id="reset" type="button" class="btn btn-primary">Reset</button>
@@ -47,8 +47,8 @@
             <h1 class="modal-title">Choose...</h1>
           </div>
           <div class="modal-body container player-modal-content">
-              <span id="x" class="fa fa-times spans"></span>
-              <span id="o" class="fa fa-circle-o spans"></span>
+              <span id="x" class="fa fa-times spans x-ingame"></span>
+              <span id="o" class="fa fa-circle-o spans o-ingame"></span>
           </div>
           </div>
         </div>
