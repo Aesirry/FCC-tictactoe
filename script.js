@@ -74,10 +74,12 @@ $(document).ready(function () {
     }
 
     function resetGame(time) {
+        setTimeout(function (){
             $(".game-box").empty();
             turn_count = 0;
             game = [0, 1, 2, 3, 4, 5, 6, 7, 8];
             return game;
+        }, 1000);
     }
 
     $(".game-box").click(function () {
