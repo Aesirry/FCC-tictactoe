@@ -50,6 +50,19 @@ $(document).ready(function () {
             $("#" + box_id).append("<span class='fa fa-circle-o o-ingame'></span>");
             game[box_id] = "o";
         }
+        if (turn_count >= 9){
+            console.log('turn limit reached');
+            game_started = false;
+        }
+        // check winning condition in here
+        if (player == aiPlayer && winning(game, player)){
+            console.log('ai wins');
+            game_started = false;
+        }
+        else if (player == huPlayer && winning(game, player)){
+            console.log('player wins');
+            game_started = false;
+        }
         return game;
     }
 
@@ -71,57 +84,30 @@ $(document).ready(function () {
         }
     }
 
-    function resetGame(time) {
+    function resetGame() {
             $(".game-box").empty();
             turn_count = 0;
             game = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+            game_started = true;
             return game;
-    }
-
-    function checkWinning(turn_count, game, player){
-        if (turn_count >= 9){
-            setTimeout(function (){
-                console.log('turn limit reached');
-                resetGame();
-            }, 1000);
-        }
-        if (player === huPlayer){
-            if (winning(game, huPlayer)) {
-                setTimeout(function (){
-                    console.log('player wins');
-                    resetGame();
-                }, 1000);
-            }
-        } else {
-            if (winning(game, aiPlayer)) {
-                setTimeout(function (){
-                    console.log('ai wins');
-                    resetGame();
-                }, 1000);
-            }
-        }
     }
 
     function checkIfGoodChoice(game, box_id) {
         var good_choices = emptyIndexes(game);
         var condition = $.inArray(parseInt(box_id), good_choices);
         if (condition === -1){
-            console.log('bad one', parseInt(box_id), good_choices, $.inArray(parseInt(box_id)));
             return false;
         } else {
-            console.log('good one', parseInt(box_id), good_choices, $.inArray(parseInt(box_id)));
             return true;
         }
     }
 
     $(".game-box").click(function () {
-        good_choice = checkIfGoodChoice(game, $(this).attr("id"));
         if (game_started){
-            checkWinning(turn_count, game, aiPlayer);
+            good_choice = checkIfGoodChoice(game, $(this).attr("id"));
             if (good_choice && !winning(game, aiPlayer)){
                 game = move(huPlayer, $(this).attr("id"), game);
             }
-            checkWinning(turn_count, game, huPlayer);
             if (good_choice && !winning(game, huPlayer)){
                 game = move(aiPlayer, aiChoice(game), game);
             }
@@ -130,6 +116,7 @@ $(document).ready(function () {
 
     $("#reset").click(function () {
         resetGame();
+        game_started = true;
     });
 
     $("#x, #o").click(function(){
