@@ -1,7 +1,5 @@
 
-// TODO: fix last box empty bug
-// TODO: if loading the page the first time. toggle the modal.
-
+// TODO: check winning / draw conditions after each turn.
 
 $(document).ready(function () {
     "use strict";
@@ -82,22 +80,31 @@ $(document).ready(function () {
         }, 1000);
     }
 
-    $(".game-box").click(function () {
-        if (game_started){
-            game = move(huPlayer, $(this).attr("id"), game);
-            game = move(aiPlayer, aiChoice(game), game);
-            if (turn_count >= 9){
-                console.log('turn limit reached');
-                resetGame();
-            }
+    function checkWinning(turn_count, game, player){
+        console.log(turn_count, game, player);
+        if (turn_count >= 9){
+            console.log('turn limit reached');
+            resetGame();
+        }
+        if (player === huPlayer){
             if (winning(game, huPlayer)) {
                 console.log('player wins');
                 resetGame();
             }
+        } else {
             if (winning(game, aiPlayer)) {
                 console.log('ai wins');
                 resetGame();
             }
+        }
+    }
+
+    $(".game-box").click(function () {
+        if (game_started){
+            game = move(huPlayer, $(this).attr("id"), game);
+            checkWinning(turn_count, game, huPlayer);
+            game = move(aiPlayer, aiChoice(game), game);
+            checkWinning(turn_count, game, aiPlayer);
         }
     });
 
@@ -112,5 +119,7 @@ $(document).ready(function () {
         $("#playerModal").modal("hide");
         game_started = true;
     });
+
+    $("#playerModal").modal("toggle");
 
 });
