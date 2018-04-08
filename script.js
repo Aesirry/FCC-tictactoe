@@ -1,5 +1,3 @@
-// TODO: prevent two symbols in same box
-
 $(document).ready(function () {
     "use strict";
     var huPlayer;
