@@ -1,15 +1,18 @@
 
-// TODO: 
+// TODO: fix last box empty bug
+// TODO: if loading the page the first time. toggle the modal.
+
 
 $(document).ready(function () {
     "use strict";
-    var roles;
     var huPlayer;
     var aiPlayer;
+    var game_started = false;
     var game = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     var turn_count = 0;
 
     function assignSymbol (choice){
+        var roles;
         if (choice === 'x'){
             roles = {
                 'huPlayer': 'x',
@@ -24,14 +27,6 @@ $(document).ready(function () {
         }
         return roles
     }
-
-    $("#x, #o").click(function(){
-        var player_roles = assignSymbol($(this).attr("id"));
-        huPlayer = player_roles["huPlayer"];
-        aiPlayer = player_roles["aiPlayer"];
-        $("#playerModal").modal("hide");
-    });
-        
 
     // returns list of empty indexes
     function emptyIndexes(board) {
@@ -86,25 +81,34 @@ $(document).ready(function () {
     }
 
     $(".game-box").click(function () {
-        game = move(huPlayer, $(this).attr("id"), game);
-        game = move(aiPlayer, aiChoice(game), game);
-        if (turn_count >= 9){
-            console.log('turn limit reached');
-            resetGame();
+        if (game_started){
+            game = move(huPlayer, $(this).attr("id"), game);
+            game = move(aiPlayer, aiChoice(game), game);
+            if (turn_count >= 9){
+                console.log('turn limit reached');
+                resetGame();
+            }
+            if (winning(game, huPlayer)) {
+                console.log('player wins');
+                resetGame();
+            }
+            if (winning(game, aiPlayer)) {
+                console.log('ai wins');
+                resetGame();
+            }
         }
-        if (winning(game, huPlayer)) {
-            console.log('player wins');
-            resetGame();
-        }
-        if (winning(game, aiPlayer)) {
-            console.log('ai wins');
-            resetGame();
-        }
-
     });
 
     $("#reset").click(function () {
         resetGame();
+    });
+
+    $("#x, #o").click(function(){
+        var player_roles = assignSymbol($(this).attr("id"));
+        huPlayer = player_roles["huPlayer"];
+        aiPlayer = player_roles["aiPlayer"];
+        $("#playerModal").modal("hide");
+        game_started = true;
     });
 
 });
