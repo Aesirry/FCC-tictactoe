@@ -1,4 +1,4 @@
-// TODO: check winning / draw conditions after each turn.
+// TODO: prevent two symbols in same box
 
 $(document).ready(function () {
     "use strict";
@@ -71,39 +71,47 @@ $(document).ready(function () {
     }
 
     function resetGame(time) {
-        setTimeout(function (){
             $(".game-box").empty();
             turn_count = 0;
             game = [0, 1, 2, 3, 4, 5, 6, 7, 8];
             return game;
-        }, 1000);
     }
 
     function checkWinning(turn_count, game, player){
-        console.log(turn_count, game, player);
         if (turn_count >= 9){
-            console.log('turn limit reached');
-            resetGame();
+            setTimeout(function (){
+                console.log('turn limit reached');
+                resetGame();
+            }, 1000);
         }
         if (player === huPlayer){
             if (winning(game, huPlayer)) {
-                console.log('player wins');
-                resetGame();
+                setTimeout(function (){
+                    console.log('player wins');
+                    resetGame();
+                }, 1000);
             }
         } else {
             if (winning(game, aiPlayer)) {
-                console.log('ai wins');
-                resetGame();
+                setTimeout(function (){
+                    console.log('ai wins');
+                    resetGame();
+                }, 1000);
             }
         }
     }
 
     $(".game-box").click(function () {
+        console.log(game[$(this).attr("id")]);
         if (game_started){
-            game = move(huPlayer, $(this).attr("id"), game);
-            checkWinning(turn_count, game, huPlayer);
-            game = move(aiPlayer, aiChoice(game), game);
             checkWinning(turn_count, game, aiPlayer);
+            if (!winning(game, aiPlayer)){
+                game = move(huPlayer, $(this).attr("id"), game);
+            }
+            checkWinning(turn_count, game, huPlayer);
+            if (!winning(game, huPlayer)){
+                game = move(aiPlayer, aiChoice(game), game);
+            }
         }
     });
 
