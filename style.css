@@ -41,10 +41,9 @@
   position: relative;
   top: 7px;
 }
-
 .player-modal-content .spans {
   display: inline;
-  position: static;
+  position: relative;
   cursor: pointer;
 }
 

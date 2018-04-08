@@ -10,17 +10,6 @@
 <body>
   <div class="container">
     <h1 class="text-center">FCC Tic Tac Toe</h1>
-    <!-- win count -->
-    <div class="hidden-xs hidden-sm hidden-md hidden-lg hidden-xl row">
-      <div class="col-xs-6 text-center">
-        <h3>Player</h3>
-        <h3></h3>
-      </div>
-      <div>
-        <h3>Computer</h3>
-      </div>
-    </div>
-    <!-- end win count  -->
     <div class="board">
       <div class="game-box" id="0"></div>
       <div class="game-box top-bottom" id="1"></div>
@@ -32,13 +21,15 @@
       <div class="game-box top-bottom" id="7"></div>
       <div class="game-box" id="8"></div>
     </div>
-    <div class="endgame text-center">
+    <div class="text-center">
       <div class="text">
         <button id="new-game" type="button" class="btn btn-primary" data-toggle="modal" data-target="#playerModal">
           New Game
         </button>
         <button id="reset" type="button" class="btn btn-primary">Reset</button>
       </div>
+      <h1 id="game_msg"></h1>
+      <h1>Player: <span id="player-score"></span> Computer: <span id="ai-score"></span></h1>
     </div>
     <div class="modal fade" id="playerModal">
       <div class="modal-dialog" role="document">
@@ -46,9 +37,11 @@
           <div class="modal-header">
             <h1 class="modal-title">Choose...</h1>
           </div>
-          <div class="modal-body container player-modal-content">
-              <span id="x" class="fa fa-times spans x-ingame"></span>
-              <span id="o" class="fa fa-circle-o spans o-ingame"></span>
+          <div class="modal-body">
+              <div class="container-fluid">
+                <span id="x" class="fa fa-times x-ingame pull-left"></span>
+                <span id="o" class="fa fa-circle-o o-ingame pull-right"></span>
+              </div>
           </div>
           </div>
         </div>

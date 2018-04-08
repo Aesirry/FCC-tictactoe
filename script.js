@@ -8,6 +8,8 @@ $(document).ready(function () {
     var good_choice = false;
     var game = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     var turn_count = 0;
+    var player_score = 0;
+    var ai_score = 0;
 
     function assignSymbol (choice){
         var roles;
@@ -51,16 +53,20 @@ $(document).ready(function () {
             game[box_id] = "o";
         }
         if (turn_count >= 9){
-            console.log('turn limit reached');
+            $("#game_msg").text('Draw');
             game_started = false;
         }
         // check winning condition in here
         if (player == aiPlayer && winning(game, player)){
-            console.log('ai wins');
+            $("#game_msg").text('ai wins');
+            ai_score += 1;
+            $("#ai-score").text(ai_score);
             game_started = false;
         }
         else if (player == huPlayer && winning(game, player)){
-            console.log('player wins');
+            $("#game_msg").text('player wins');
+            player_score += 1;
+            $("#player-score").text(player_score);
             game_started = false;
         }
         return game;
@@ -86,6 +92,8 @@ $(document).ready(function () {
 
     function resetGame() {
             $(".game-box").empty();
+            $("#game_msg").empty();
+
             turn_count = 0;
             game = [0, 1, 2, 3, 4, 5, 6, 7, 8];
             game_started = true;
@@ -102,6 +110,9 @@ $(document).ready(function () {
         }
     }
 
+    $("#player-score").text(player_score);
+    $("#ai-score").text(ai_score);
+
     $(".game-box").click(function () {
         if (game_started){
             good_choice = checkIfGoodChoice(game, $(this).attr("id"));
@@ -112,6 +123,14 @@ $(document).ready(function () {
                 game = move(aiPlayer, aiChoice(game), game);
             }
         }
+    });
+
+    $("#new-game").click(function(){
+        resetGame();
+        player_score = 0;
+        ai_score = 0;
+        $("#player-score").text(player_score);
+        $("#ai-score").text(ai_score);
     });
 
     $("#reset").click(function () {
