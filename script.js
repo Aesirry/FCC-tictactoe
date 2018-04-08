@@ -1,4 +1,3 @@
-
 // TODO: check winning / draw conditions after each turn.
 
 $(document).ready(function () {
@@ -120,6 +119,10 @@ $(document).ready(function () {
         game_started = true;
     });
 
-    $("#playerModal").modal("toggle");
+    $("#playerModal").modal({
+        backdrop: 'static',
+        keyboard: false,
+        show: true
+    });
 
 });
