@@ -5,6 +5,7 @@ $(document).ready(function () {
     var huPlayer;
     var aiPlayer;
     var game_started = false;
+    var good_choice = false;
     var game = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     var turn_count = 0;
 
@@ -101,15 +102,27 @@ $(document).ready(function () {
         }
     }
 
+    function checkIfGoodChoice(game, box_id) {
+        var good_choices = emptyIndexes(game);
+        var condition = $.inArray(parseInt(box_id), good_choices);
+        if (condition === -1){
+            console.log('bad one', parseInt(box_id), good_choices, $.inArray(parseInt(box_id)));
+            return false;
+        } else {
+            console.log('good one', parseInt(box_id), good_choices, $.inArray(parseInt(box_id)));
+            return true;
+        }
+    }
+
     $(".game-box").click(function () {
-        console.log(game[$(this).attr("id")]);
+        good_choice = checkIfGoodChoice(game, $(this).attr("id"));
         if (game_started){
             checkWinning(turn_count, game, aiPlayer);
-            if (!winning(game, aiPlayer)){
+            if (good_choice && !winning(game, aiPlayer)){
                 game = move(huPlayer, $(this).attr("id"), game);
             }
             checkWinning(turn_count, game, huPlayer);
-            if (!winning(game, huPlayer)){
+            if (good_choice && !winning(game, huPlayer)){
                 game = move(aiPlayer, aiChoice(game), game);
             }
         }
